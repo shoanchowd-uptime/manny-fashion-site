@@ -60,10 +60,7 @@ function Hero() {
         </div>
         <div style={{ opacity: 0, animation: "fadeUp 1s ease 0.6s forwards", position: "relative" }}>
           <div style={{ position: "absolute", top: -12, left: -12, right: 12, bottom: 12, border: `2px solid ${C.gold}30`, borderRadius: 12 }} />
-          <div style={{ width: "100%", maxWidth: 420, borderRadius: 10, aspectRatio: "4/5", background: `linear-gradient(135deg, ${C.bgAlt}, ${C.border})`, display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", gap: 16, boxShadow: "0 24px 60px rgba(0,0,0,0.15)", position: "relative", zIndex: 1 }}>
-            <div style={{ width: 80, height: 80, borderRadius: "50%", background: `linear-gradient(135deg, ${C.accent}, ${C.gold})`, display: "flex", alignItems: "center", justifyContent: "center", fontFamily: F.display, fontSize: 32, fontWeight: 700, color: C.white }}>M</div>
-            <span style={{ fontFamily: F.body, fontSize: 13, color: C.muted, letterSpacing: "0.1em", textTransform: "uppercase" }}>Photo Coming Soon</span>
-          </div>
+          <img src="/images/suit.jpg" alt="Manny Chowdhury" style={{ width: "100%", maxWidth: 420, borderRadius: 10, objectFit: "cover", aspectRatio: "4/5", boxShadow: "0 24px 60px rgba(0,0,0,0.15)", position: "relative", zIndex: 1, display: "block" }} />
           <div style={{ position: "absolute", bottom: -16, right: -16, zIndex: 2, background: C.accent, color: C.white, padding: "12px 20px", borderRadius: 8, fontFamily: F.body, fontSize: 13, fontWeight: 600, boxShadow: "0 8px 24px rgba(139,38,53,0.3)" }}>30+ Years in Fashion</div>
         </div>
       </div>
@@ -80,12 +77,34 @@ function Hero() {
   );
 }
 
+function PhotoStrip() {
+  const photos = [
+    { src: "/images/event.jpg", caption: "At an evening event" },
+    { src: "/images/blazer.jpg", caption: "Always dressed for the occasion" },
+    { src: "/images/casual.jpg", caption: "NYC born and raised" },
+  ];
+  return (
+    <section style={{ padding: 0, background: C.dark, overflow: "hidden" }}>
+      <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 0 }}>
+        {photos.map((p, i) => (
+          <div key={i} style={{ position: "relative", overflow: "hidden", aspectRatio: "1/1", cursor: "default" }}>
+            <img src={p.src} alt={p.caption} style={{ width: "100%", height: "100%", objectFit: "cover", transition: "transform 0.6s ease" }}
+              onMouseEnter={e => e.target.style.transform = "scale(1.08)"}
+              onMouseLeave={e => e.target.style.transform = "scale(1)"} />
+            <div style={{ position: "absolute", bottom: 0, left: 0, right: 0, background: "linear-gradient(transparent, rgba(0,0,0,0.7))", padding: "40px 20px 16px", fontFamily: F.body, fontSize: 12, color: "rgba(255,255,255,0.85)", letterSpacing: "0.04em" }}>{p.caption}</div>
+          </div>
+        ))}
+      </div>
+    </section>
+  );
+}
+
 function Story() {
   const items = [
     { year: "1989", title: "The Beginning", text: "I immigrated to Brooklyn from Bangladesh with a dream and a determination to build something for my family. New York was overwhelming, exciting, and full of opportunity. I knew fashion was where I belonged." },
-    { year: "1990s", title: "Learning the Trade", text: "I started my career at Oriental Fabrics in New York City, learning the business from the ground up — fabrics, patterns, customers, and most importantly, how to listen to what women actually want to wear." },
+    { year: "1990s", title: "Learning the Trade", text: "I started my career at Oriental Fabrics in New York City, learning the business from the ground up \u2014 fabrics, patterns, customers, and most importantly, how to listen to what women actually want to wear." },
     { year: "2000s", title: "Building Relationships", text: "Over the years I built a network of boutique owners, retailers, and loyal customers who trusted my eye for quality and style. In this business, your reputation is everything." },
-    { year: "Today", title: "Manny Fashion", text: "Currently an Account Executive at Tally Taylor, I work alongside wonderful people in the industry. Now I'm bringing that same personal touch directly to you — whether you're a boutique or a woman who wants to feel extraordinary. I wouldn't be here without my family. They're my reason for everything." },
+    { year: "Today", title: "Manny Fashion", text: "Currently an Account Executive at Tally Taylor, I work alongside wonderful people in the industry. Now I\u2019m bringing that same personal touch directly to you \u2014 whether you\u2019re a boutique or a woman who wants to feel extraordinary. I wouldn\u2019t be here without my family. They\u2019re my reason for everything." },
   ];
   return (
     <section id="story" style={{ padding: "100px clamp(20px,5vw,64px)", background: C.white }}>
@@ -122,7 +141,7 @@ function Story() {
 function Collections() {
   const cards = [
     { title: "Church & Occasion Wear", desc: "Elegant suits, hats, and ensembles for Sunday services, celebrations, and life's special moments. Pieces that make you feel as good as you look.", tags: ["Suits", "Hats", "Ensembles", "Plus Size"], icon: "\u2728" },
-    { title: "Everyday Fashion", desc: "Versatile, confident pieces for the modern woman. From workwear to weekends — style shouldn't stop when the occasion does.", tags: ["Dresses", "Separates", "Workwear", "Casual"], icon: "\uD83D\uDC5C" },
+    { title: "Everyday Fashion", desc: "Versatile, confident pieces for the modern woman. From workwear to weekends \u2014 style shouldn't stop when the occasion does.", tags: ["Dresses", "Separates", "Workwear", "Casual"], icon: "\uD83D\uDC5C" },
     { title: "Wholesale & Boutique", desc: "Curated multi-brand collections for boutique owners and retailers. Competitive pricing, consistent quality, and a partner who picks up the phone.", tags: ["Bulk Orders", "Multi-Brand", "Lookbooks", "Reorders"], icon: "\uD83C\uDFEA" },
   ];
   return (
@@ -236,6 +255,7 @@ export default function MannyFashion() {
     <div style={{ background: C.bg, minHeight: "100vh" }}>
       <Nav />
       <Hero />
+      <PhotoStrip />
       <Story />
       <Collections />
       <Connect />
