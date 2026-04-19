@@ -116,7 +116,7 @@ function TrustedBy() {
 function Story() {
   const items = [
     { year: "1989", text: "Immigrated to Brooklyn from Bangladesh with nothing but determination and a love for fashion." },
-    { year: "1990s", text: "Started at Oriental Fabrics in NYC. Learned the trade from the ground up \u2014 fabrics, fit, and what women actually want to wear." },
+    { year: "1990s", text: "Started at Oriental Fabrics in NYC. Learned the trade from the ground up — fabrics, fit, and what women actually want to wear." },
     { year: "2000s", text: "Built a network of boutique owners and loyal customers. In this business, reputation is everything." },
     { year: "Now", text: "Account Executive at Tally Taylor. Now bringing three decades of expertise directly to you." },
   ];
@@ -142,7 +142,7 @@ function Story() {
 
         <FadeIn delay={0.3}>
           <div style={{ marginTop: 80, textAlign: "center", maxWidth: 640, margin: "80px auto 0" }}>
-            <p style={{ fontFamily: F.display, fontSize: 26, fontWeight: 400, fontStyle: "italic", color: C.dark, lineHeight: 1.55, marginBottom: 16 }}>"I don't sell clothes. I build relationships. When you work with me, you're not a transaction \u2014 you're family."</p>
+            <p style={{ fontFamily: F.display, fontSize: 26, fontWeight: 400, fontStyle: "italic", color: C.dark, lineHeight: 1.55, marginBottom: 16 }}>"I don't sell clothes. I build relationships. When you work with me, you're not a transaction — you're family."</p>
             <p style={{ fontFamily: F.body, fontSize: 12, color: C.muted, letterSpacing: "0.12em", textTransform: "uppercase" }}>Manny Chowdhury</p>
           </div>
         </FadeIn>
@@ -153,9 +153,9 @@ function Story() {
 
 function Collections() {
   const cards = [
-    { title: "Church & Occasion", desc: "Elegant suits, hats, and ensembles for Sunday services, celebrations, and every moment that matters.", sub: "Suits \u00B7 Hats \u00B7 Ensembles \u00B7 Plus Size" },
-    { title: "Everyday Elegance", desc: "Versatile pieces for the modern woman. Workwear to weekends \u2014 because style has no off-switch.", sub: "Dresses \u00B7 Separates \u00B7 Workwear \u00B7 Casual" },
-    { title: "Wholesale", desc: "Curated collections for boutique owners. Competitive pricing, consistent quality, and a partner who picks up the phone.", sub: "Bulk Orders \u00B7 Multi-Brand \u00B7 Lookbooks" },
+    { title: "Church & Occasion", desc: "Elegant suits, hats, and ensembles for Sunday services, celebrations, and every moment that matters.", sub: "Suits · Hats · Ensembles · Plus Size" },
+    { title: "Everyday Elegance", desc: "Versatile pieces for the modern woman. Workwear to weekends — because style has no off-switch.", sub: "Dresses · Separates · Workwear · Casual" },
+    { title: "Wholesale", desc: "Curated collections for boutique owners. Competitive pricing, consistent quality, and a partner who picks up the phone.", sub: "Bulk Orders · Multi-Brand · Lookbooks" },
   ];
   return (
     <section id="collections" style={{ padding: "120px clamp(24px,6vw,80px)", background: C.bg }}>
@@ -225,15 +225,15 @@ function Connect() {
               <div style={{ display: "flex", flexDirection: "column", gap: 20 }}>
                 <a href="https://wa.me/13473358764" target="_blank" rel="noopener" style={{ fontFamily: F.body, fontSize: 13, fontWeight: 400, color: C.dark, textDecoration: "none", display: "flex", alignItems: "center", gap: 12 }}>
                   <span style={{ width: 40, height: 40, borderRadius: "50%", background: C.bgAlt, display: "flex", alignItems: "center", justifyContent: "center", fontSize: 16, flexShrink: 0 }}>W</span>
-                  <span>WhatsApp <span style={{ color: C.muted }}>\u00B7 (347) 335-8764</span></span>
+                  <span>WhatsApp · (347) 335-8764</span>
                 </a>
                 <a href="tel:+13473358764" style={{ fontFamily: F.body, fontSize: 13, fontWeight: 400, color: C.dark, textDecoration: "none", display: "flex", alignItems: "center", gap: 12 }}>
                   <span style={{ width: 40, height: 40, borderRadius: "50%", background: C.bgAlt, display: "flex", alignItems: "center", justifyContent: "center", fontSize: 16, flexShrink: 0 }}>P</span>
-                  <span>Phone <span style={{ color: C.muted }}>\u00B7 (347) 335-8764</span></span>
+                  <span>Phone · (347) 335-8764</span>
                 </a>
                 <a href="https://instagram.com/mannyfashion" target="_blank" rel="noopener" style={{ fontFamily: F.body, fontSize: 13, fontWeight: 400, color: C.dark, textDecoration: "none", display: "flex", alignItems: "center", gap: 12 }}>
                   <span style={{ width: 40, height: 40, borderRadius: "50%", background: C.bgAlt, display: "flex", alignItems: "center", justifyContent: "center", fontSize: 16, flexShrink: 0 }}>I</span>
-                  <span>Instagram <span style={{ color: C.muted }}>\u00B7 @mannyfashion</span></span>
+                  <span>Instagram · @mannyfashion</span>
                 </a>
               </div>
             </FadeIn>
@@ -284,11 +284,11 @@ function Footer() {
       <div style={{ maxWidth: 1000, margin: "0 auto", display: "flex", justifyContent: "space-between", alignItems: "flex-end", flexWrap: "wrap", gap: 24 }}>
         <div>
           <p style={{ fontFamily: F.display, fontSize: 20, fontWeight: 400, color: C.cream, letterSpacing: "0.08em", textTransform: "uppercase", marginBottom: 8 }}>Manny Fashion</p>
-          <p style={{ fontFamily: F.body, fontSize: 12, fontWeight: 300, color: "rgba(255,255,255,0.4)" }}>New York \u00B7 Women's Fashion \u00B7 Wholesale & Direct</p>
+          <p style={{ fontFamily: F.body, fontSize: 12, fontWeight: 300, color: "rgba(255,255,255,0.4)" }}>New York · Women's Fashion · Wholesale & Direct</p>
         </div>
         <div style={{ textAlign: "right" }}>
           <p style={{ fontFamily: F.body, fontSize: 12, fontWeight: 300, color: "rgba(255,255,255,0.5)", marginBottom: 4 }}>(347) 335-8764</p>
-          <p style={{ fontFamily: F.body, fontSize: 11, fontWeight: 300, color: "rgba(255,255,255,0.25)" }}>\u00A9 2026 Manny Fashion</p>
+          <p style={{ fontFamily: F.body, fontSize: 11, fontWeight: 300, color: "rgba(255,255,255,0.25)" }}>© 2026 Manny Fashion</p>
         </div>
       </div>
     </footer>
