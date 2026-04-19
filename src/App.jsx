@@ -59,7 +59,6 @@ function Hero() {
           </div>
         </div>
         <div style={{ opacity: 0, animation: "fadeUp 1s ease 0.6s forwards", position: "relative" }}>
-          <div style={{ position: "absolute", top: -12, left: -12, right: 12, bottom: 12, border: `2px solid ${C.gold}30`, borderRadius: 12 }} />
           <img src="/images/suit.jpg" alt="Manny Chowdhury" style={{ width: "100%", maxWidth: 420, borderRadius: 10, objectFit: "cover", aspectRatio: "4/5", boxShadow: "0 24px 60px rgba(0,0,0,0.15)", position: "relative", zIndex: 1, display: "block" }} />
           <div style={{ position: "absolute", bottom: -16, right: -16, zIndex: 2, background: C.accent, color: C.white, padding: "12px 20px", borderRadius: 8, fontFamily: F.body, fontSize: 13, fontWeight: 600, boxShadow: "0 8px 24px rgba(139,38,53,0.3)" }}>30+ Years in Fashion</div>
         </div>
