@@ -177,7 +177,29 @@ function Connect() {
   const [form, setForm] = useState({ name: "", email: "", phone: "", type: "boutique", message: "" });
   const [sent, setSent] = useState(false);
   const handle = f => e => setForm(p => ({ ...p, [f]: e.target.value }));
-  const submit = () => { if (form.name && form.email) setSent(true); };
+    const [sending, setSending] = useState(false);
+  const submit = async () => {
+    if (!form.name || !form.email) return;
+    setSending(true);
+    try {
+      await fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          access_key: "50dddef6-0ac7-47bc-a468-d2a80d91f765",
+          subject: "New Manny Fashion Inquiry",
+          from_name: form.name,
+          name: form.name,
+          email: form.email,
+          phone: form.phone || "Not provided",
+          customer_type: form.type,
+          message: form.message || "No message",
+        }),
+      });
+      setSent(true);
+    } catch (e) { alert("Something went wrong, please try WhatsApp instead."); }
+    setSending(false);
+  };
   const inp = { width: "100%", padding: "13px 16px", fontFamily: F.body, fontSize: 14, border: `1.5px solid ${C.border}`, borderRadius: 6, background: C.white, color: C.dark, outline: "none", transition: "border-color 0.3s" };
   return (
     <section id="connect" style={{ padding: "100px clamp(20px,5vw,64px)", background: C.white }}>
@@ -220,7 +242,7 @@ function Connect() {
                       <option value="other">Other</option>
                     </select>
                     <textarea placeholder="Tell me what you're looking for..." value={form.message} onChange={handle("message")} rows={4} style={{ ...inp, resize: "vertical", minHeight: 90 }} onFocus={e => e.target.style.borderColor = C.accent} onBlur={e => e.target.style.borderColor = C.border} />
-                    <button onClick={submit} style={{ width: "100%", padding: "15px", fontFamily: F.body, fontSize: 14, fontWeight: 700, color: C.white, background: C.accent, border: "none", borderRadius: 6, cursor: "pointer", letterSpacing: "0.06em", textTransform: "uppercase" }}>Send Inquiry</button>
+                    <button onClick={submit} style={{ width: "100%", padding: "15px", fontFamily: F.body, fontSize: 14, fontWeight: 700, color: C.white, background: C.accent, border: "none", borderRadius: 6, cursor: "pointer", letterSpacing: "0.06em", textTransform: "uppercase" }}>{sending ? "Sending..." : "Send Inquiry"}</button>
                   </div>
                 </>
               )}
