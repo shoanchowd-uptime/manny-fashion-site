@@ -67,11 +67,47 @@ function Hero() {
         @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,900;1,400;1,600;1,700&family=DM+Sans:wght@300;400;500;600;700&display=swap');
         @keyframes fadeUp{from{opacity:0;transform:translateY(28px)}to{opacity:1;transform:translateY(0)}}
         @keyframes spin{to{transform:rotate(360deg)}}
+        @keyframes marquee{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
         *{box-sizing:border-box;margin:0;padding:0}
         html{scroll-behavior:smooth}
         body{background:${C.bg};overflow-x:hidden}
         ::selection{background:${C.accent}25}
       `}</style>
+    </section>
+  );
+}
+
+function TrustedBy() {
+  const brands = [
+    "Tally Taylor",
+    "Ben Marc",
+    "Fashion Nova",
+    "Donna Vinci",
+    "Lisa Rene",
+    "Nubiano",
+    "Lily & Taylor",
+    "Dorinda Clark Cole",
+    "Elite Champagne",
+    "GMI",
+    "Terramina",
+    "Chancele",
+  ];
+  const doubled = [...brands, ...brands];
+  return (
+    <section style={{ padding: "40px 0", background: C.dark, overflow: "hidden" }}>
+      <div style={{ textAlign: "center", marginBottom: 24 }}>
+        <span style={{ fontFamily: F.body, fontSize: 12, fontWeight: 600, color: C.gold, letterSpacing: "0.2em", textTransform: "uppercase" }}>Working with Professionals at</span>
+      </div>
+      <div style={{ position: "relative", width: "100%", overflow: "hidden", maskImage: "linear-gradient(to right, transparent, black 10%, black 90%, transparent)", WebkitMaskImage: "linear-gradient(to right, transparent, black 10%, black 90%, transparent)" }}>
+        <div style={{ display: "flex", gap: 60, animation: "marquee 30s linear infinite", width: "max-content" }}>
+          {doubled.map((brand, i) => (
+            <div key={i} style={{ display: "flex", alignItems: "center", gap: 12, flexShrink: 0, padding: "8px 0" }}>
+              <div style={{ width: 8, height: 8, borderRadius: "50%", background: C.gold, opacity: 0.5 }} />
+              <span style={{ fontFamily: F.display, fontSize: 18, fontWeight: 600, color: "rgba(255,255,255,0.8)", whiteSpace: "nowrap", letterSpacing: "0.02em" }}>{brand}</span>
+            </div>
+          ))}
+        </div>
+      </div>
     </section>
   );
 }
@@ -176,8 +212,8 @@ function Collections() {
 function Connect() {
   const [form, setForm] = useState({ name: "", email: "", phone: "", type: "boutique", message: "" });
   const [sent, setSent] = useState(false);
+  const [sending, setSending] = useState(false);
   const handle = f => e => setForm(p => ({ ...p, [f]: e.target.value }));
-    const [sending, setSending] = useState(false);
   const submit = async () => {
     if (!form.name || !form.email) return;
     setSending(true);
@@ -276,6 +312,7 @@ export default function MannyFashion() {
     <div style={{ background: C.bg, minHeight: "100vh" }}>
       <Nav />
       <Hero />
+      <TrustedBy />
       <PhotoStrip />
       <Story />
       <Collections />
