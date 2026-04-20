@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef } from "react";
+import { retailProducts, wholesaleProducts } from "./catalog.js";
 
 const C = {
   bg: "#F5F0EB",
@@ -47,7 +48,7 @@ function Nav() {
       <div style={{ maxWidth: 1240, margin: "0 auto", display: "flex", alignItems: "center", justifyContent: "space-between", height: s ? 56 : 72, transition: "height 0.5s ease" }}>
         <a href="#top" style={{ fontFamily: F.display, fontSize: 24, fontWeight: 500, color: C.dark, textDecoration: "none", letterSpacing: "0.08em", textTransform: "uppercase" }}>Manny Fashion</a>
         <div style={{ display: "flex", gap: 32, alignItems: "center" }}>
-          {["Story", "Collections", "Connect"].map(t => (
+          {["Story", "Collections", "Catalog", "Connect"].map(t => (
             <a key={t} href={`#${t.toLowerCase()}`} style={{ fontFamily: F.body, fontSize: 11, fontWeight: 400, color: C.muted, textDecoration: "none", letterSpacing: "0.14em", textTransform: "uppercase", transition: "color 0.3s" }}
               onMouseEnter={e => e.target.style.color = C.dark}
               onMouseLeave={e => e.target.style.color = C.muted}
@@ -143,7 +144,7 @@ function Story() {
             <p style={{ fontFamily: F.body, fontSize: 11, fontWeight: 400, color: C.accent, letterSpacing: "0.2em", textTransform: "uppercase" }}>The Journey</p>
             <div style={{ width: 40, height: 1, background: C.accent }} />
           </div>
-          <h2 style={{ fontFamily: F.display, fontSize: "clamp(32px,4.5vw,52px)", fontWeight: 400, color: C.dark, lineHeight: 1.15, textAlign: "center", marginBottom: 16 }}>From Dhaka to <em style={{ color: C.accentDeep }}>Brooklyn</em></h2>
+          <h2 style={{ fontFamily: F.display, fontSize: "clamp(32px,4.5vw,52px)", fontWeight: 400, color: C.dark, lineHeight: 1.15, textAlign: "center", marginBottom: 16 }}>From Comilla to <em style={{ color: C.accentDeep }}>New York</em></h2>
           <p style={{ fontFamily: F.body, fontSize: 15, fontWeight: 300, color: C.muted, lineHeight: 1.85, maxWidth: 560, margin: "0 auto 64px", textAlign: "center" }}>A three-decade journey through New York's fashion industry, built one relationship at a time.</p>
         </FadeIn>
 
@@ -204,6 +205,110 @@ function Collections() {
             </FadeIn>
           ))}
         </div>
+      </div>
+    </section>
+  );
+}
+
+function Catalog() {
+  const [mode, setMode] = useState("retail");
+  const items = mode === "retail" ? retailProducts : wholesaleProducts;
+  const copy = {
+    retail: "Personal shopping pieces are being curated. Drop a line and I'll send previews as they come in.",
+    wholesale: "Bulk catalog and lookbooks are being assembled. Reach out for current availability and pricing.",
+  };
+
+  const RetailCard = ({ p }) => (
+    <div style={{ background: C.white, border: `1px solid ${C.border}`, transition: "all 0.4s" }}
+      onMouseEnter={e => { e.currentTarget.style.borderColor = C.accent; e.currentTarget.style.transform = "translateY(-4px)"; e.currentTarget.style.boxShadow = "0 12px 32px rgba(44,36,32,0.06)"; }}
+      onMouseLeave={e => { e.currentTarget.style.borderColor = C.border; e.currentTarget.style.transform = "translateY(0)"; e.currentTarget.style.boxShadow = "none"; }}>
+      <div style={{ aspectRatio: "3/4", background: C.bgAlt, overflow: "hidden" }}>
+        {p.image && <img src={p.image} alt={p.name} style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }} />}
+      </div>
+      <div style={{ padding: "24px 24px 28px" }}>
+        <h3 style={{ fontFamily: F.display, fontSize: 20, fontWeight: 400, color: C.dark, marginBottom: 8, lineHeight: 1.25 }}>{p.name}</h3>
+        {p.description && <p style={{ fontFamily: F.body, fontSize: 13, fontWeight: 300, color: C.muted, lineHeight: 1.7, marginBottom: 16 }}>{p.description}</p>}
+        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "baseline", borderTop: `1px solid ${C.border}`, paddingTop: 14 }}>
+          <span style={{ fontFamily: F.display, fontSize: 18, fontWeight: 500, color: C.accent }}>{typeof p.price === "number" ? `$${p.price}` : p.price}</span>
+          {p.sizes && <span style={{ fontFamily: F.body, fontSize: 11, color: C.mutedLight, letterSpacing: "0.08em", textTransform: "uppercase" }}>{p.sizes.join(" · ")}</span>}
+        </div>
+      </div>
+    </div>
+  );
+
+  const WholesaleCard = ({ p }) => (
+    <div style={{ background: C.white, border: `1px solid ${C.border}`, transition: "all 0.4s" }}
+      onMouseEnter={e => { e.currentTarget.style.borderColor = C.accent; e.currentTarget.style.transform = "translateY(-4px)"; e.currentTarget.style.boxShadow = "0 12px 32px rgba(44,36,32,0.06)"; }}
+      onMouseLeave={e => { e.currentTarget.style.borderColor = C.border; e.currentTarget.style.transform = "translateY(0)"; e.currentTarget.style.boxShadow = "none"; }}>
+      <div style={{ aspectRatio: "3/4", background: C.bgAlt, overflow: "hidden" }}>
+        {p.image && <img src={p.image} alt={p.name} style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }} />}
+      </div>
+      <div style={{ padding: "24px 24px 28px" }}>
+        {p.brand && <p style={{ fontFamily: F.body, fontSize: 10, color: C.terra, letterSpacing: "0.16em", textTransform: "uppercase", marginBottom: 8 }}>{p.brand}</p>}
+        <h3 style={{ fontFamily: F.display, fontSize: 20, fontWeight: 400, color: C.dark, marginBottom: 8, lineHeight: 1.25 }}>{p.name}</h3>
+        {p.description && <p style={{ fontFamily: F.body, fontSize: 13, fontWeight: 300, color: C.muted, lineHeight: 1.7, marginBottom: 16 }}>{p.description}</p>}
+        <div style={{ borderTop: `1px solid ${C.border}`, paddingTop: 14 }}>
+          <div style={{ display: "flex", justifyContent: "space-between", marginBottom: 6 }}>
+            <span style={{ fontFamily: F.body, fontSize: 11, color: C.mutedLight, letterSpacing: "0.08em", textTransform: "uppercase" }}>MOQ</span>
+            <span style={{ fontFamily: F.body, fontSize: 13, color: C.dark }}>{p.moq}</span>
+          </div>
+          <div style={{ display: "flex", justifyContent: "space-between" }}>
+            <span style={{ fontFamily: F.body, fontSize: 11, color: C.mutedLight, letterSpacing: "0.08em", textTransform: "uppercase" }}>Price</span>
+            <span style={{ fontFamily: F.display, fontSize: 14, fontWeight: 500, color: C.accent }}>{p.priceRange}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+
+  return (
+    <section id="catalog" style={{ padding: "120px clamp(24px,6vw,80px)", background: C.white }}>
+      <div style={{ maxWidth: 1000, margin: "0 auto" }}>
+        <FadeIn>
+          <div style={{ display: "flex", justifyContent: "center", alignItems: "center", gap: 16, marginBottom: 20 }}>
+            <div style={{ width: 40, height: 1, background: C.accent }} />
+            <p style={{ fontFamily: F.body, fontSize: 11, fontWeight: 400, color: C.accent, letterSpacing: "0.2em", textTransform: "uppercase" }}>Catalog</p>
+            <div style={{ width: 40, height: 1, background: C.accent }} />
+          </div>
+          <h2 style={{ fontFamily: F.display, fontSize: "clamp(32px,4.5vw,52px)", fontWeight: 400, color: C.dark, textAlign: "center", marginBottom: 16 }}>Browse the <em style={{ color: C.accentDeep }}>collection</em></h2>
+          <p style={{ fontFamily: F.body, fontSize: 15, fontWeight: 300, color: C.muted, lineHeight: 1.85, maxWidth: 560, margin: "0 auto 48px", textAlign: "center" }}>Wholesale orders for boutique owners, or direct retail for the discerning shopper. Previews by appointment.</p>
+        </FadeIn>
+
+        <FadeIn delay={0.1}>
+          <div style={{ display: "flex", justifyContent: "center", marginBottom: 56, borderBottom: `1px solid ${C.border}` }}>
+            {["retail", "wholesale"].map(m => (
+              <button key={m} onClick={() => setMode(m)} style={{
+                fontFamily: F.body, fontSize: 11, fontWeight: 400, padding: "16px 32px",
+                background: "transparent", border: "none", cursor: "pointer",
+                color: mode === m ? C.dark : C.muted,
+                letterSpacing: "0.16em", textTransform: "uppercase",
+                borderBottom: mode === m ? `2px solid ${C.accent}` : "2px solid transparent",
+                marginBottom: -1, transition: "all 0.3s"
+              }}>{m}</button>
+            ))}
+          </div>
+        </FadeIn>
+
+        {items.length === 0 ? (
+          <FadeIn delay={0.2}>
+            <div style={{ textAlign: "center", padding: "72px 24px", background: C.bg, border: `1px solid ${C.border}` }}>
+              <p style={{ fontFamily: F.display, fontSize: 11, color: C.terra, letterSpacing: "0.2em", textTransform: "uppercase", marginBottom: 16 }}>Coming Soon</p>
+              <p style={{ fontFamily: F.display, fontSize: 30, fontWeight: 400, color: C.dark, marginBottom: 16, lineHeight: 1.2 }}>Catalog launching soon</p>
+              <p style={{ fontFamily: F.body, fontSize: 14, fontWeight: 300, color: C.muted, lineHeight: 1.85, maxWidth: 440, margin: "0 auto 32px" }}>{copy[mode]}</p>
+              <a href="#connect" style={{ fontFamily: F.body, fontSize: 11, fontWeight: 400, color: C.white, background: C.dark, padding: "14px 36px", textDecoration: "none", letterSpacing: "0.14em", textTransform: "uppercase", display: "inline-block", transition: "background 0.3s" }}
+                onMouseEnter={e => e.target.style.background = C.deep}
+                onMouseLeave={e => e.target.style.background = C.dark}>Request Early Access</a>
+            </div>
+          </FadeIn>
+        ) : (
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 24 }}>
+            {items.map((p, i) => (
+              <FadeIn key={p.id || i} delay={i * 0.06}>
+                {mode === "retail" ? <RetailCard p={p} /> : <WholesaleCard p={p} />}
+              </FadeIn>
+            ))}
+          </div>
+        )}
       </div>
     </section>
   );
@@ -270,13 +375,13 @@ function Connect() {
                     <span style={{ display: "block", fontSize: 12, color: C.mutedLight, marginTop: 2 }}>(347) 335-8764</span>
                   </div>
                 </a>
-                <a href="https://instagram.com/mannyfashion" target="_blank" rel="noopener" style={{ fontFamily: F.body, fontSize: 13, fontWeight: 400, color: C.dark, textDecoration: "none", display: "flex", alignItems: "center", gap: 14, transition: "color 0.3s" }}
+                <a href="https://www.instagram.com/mannybytallytaylor/" target="_blank" rel="noopener" style={{ fontFamily: F.body, fontSize: 13, fontWeight: 400, color: C.dark, textDecoration: "none", display: "flex", alignItems: "center", gap: 14, transition: "color 0.3s" }}
                   onMouseEnter={e => e.currentTarget.style.color = C.accent}
                   onMouseLeave={e => e.currentTarget.style.color = C.dark}>
                   <span style={{ width: 44, height: 44, borderRadius: "50%", background: C.bgAlt, border: `1px solid ${C.border}`, display: "flex", alignItems: "center", justifyContent: "center", fontFamily: F.display, fontSize: 16, fontWeight: 500, color: C.accent, flexShrink: 0 }}>I</span>
                   <div>
                     <span style={{ fontWeight: 400 }}>Instagram</span>
-                    <span style={{ display: "block", fontSize: 12, color: C.mutedLight, marginTop: 2 }}>@mannyfashion</span>
+                    <span style={{ display: "block", fontSize: 12, color: C.mutedLight, marginTop: 2 }}>@mannybytallytaylor</span>
                   </div>
                 </a>
               </div>
@@ -333,7 +438,10 @@ function Footer() {
           </div>
           <div style={{ textAlign: "right" }}>
             <p style={{ fontFamily: F.body, fontSize: 13, fontWeight: 300, color: "rgba(255,255,255,0.55)", marginBottom: 8 }}>(347) 335-8764</p>
-            <a href="https://wa.me/13473358764" target="_blank" rel="noopener" style={{ fontFamily: F.body, fontSize: 11, fontWeight: 400, color: C.terra, textDecoration: "none", letterSpacing: "0.1em", textTransform: "uppercase" }}>WhatsApp</a>
+            <div style={{ display: "flex", gap: 20, justifyContent: "flex-end" }}>
+              <a href="https://wa.me/13473358764" target="_blank" rel="noopener" style={{ fontFamily: F.body, fontSize: 11, fontWeight: 400, color: C.terra, textDecoration: "none", letterSpacing: "0.1em", textTransform: "uppercase" }}>WhatsApp</a>
+              <a href="https://www.instagram.com/mannybytallytaylor/" target="_blank" rel="noopener" style={{ fontFamily: F.body, fontSize: 11, fontWeight: 400, color: C.terra, textDecoration: "none", letterSpacing: "0.1em", textTransform: "uppercase" }}>Instagram</a>
+            </div>
           </div>
         </div>
         <div style={{ borderTop: "1px solid rgba(255,255,255,0.1)", paddingTop: 20, display: "flex", justifyContent: "space-between" }}>
@@ -353,6 +461,7 @@ export default function MannyFashion() {
       <TrustedBy />
       <Story />
       <Collections />
+      <Catalog />
       <Connect />
       <Footer />
     </div>
