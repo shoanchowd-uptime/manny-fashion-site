@@ -86,8 +86,8 @@ function Hero() {
             >My Story</a>
           </div>
         </div>
-        <div style={{ opacity: 0, animation: "fadeIn 1.2s ease 0.5s forwards", position: "relative" }}>
-          <img src="/images/suit.jpg" alt="Manny Chowdhury" style={{ width: "100%", maxWidth: 480, aspectRatio: "3/4", objectFit: "cover", display: "block" }} />
+        <div style={{ opacity: 0, animation: "fadeIn 1.2s ease 0.5s forwards", position: "relative", width: "100%", maxWidth: 480, overflow: "hidden" }}>
+          <img src="/images/suit.jpg" alt="Manny Chowdhury" style={{ width: "100%", aspectRatio: "3/4", objectFit: "cover", objectPosition: "center 25%", display: "block" }} />
           <div style={{ position: "absolute", bottom: 0, left: 0, right: 0, background: "linear-gradient(transparent 40%, rgba(44,36,32,0.6))", padding: "40px 24px 20px" }}>
             <p style={{ fontFamily: F.body, fontSize: 11, color: "rgba(255,255,255,0.9)", letterSpacing: "0.12em", textTransform: "uppercase" }}>Manny Chowdhury · Founder</p>
           </div>
@@ -222,16 +222,24 @@ function Catalog() {
     <div style={{ background: C.white, border: `1px solid ${C.border}`, transition: "all 0.4s" }}
       onMouseEnter={e => { e.currentTarget.style.borderColor = C.accent; e.currentTarget.style.transform = "translateY(-4px)"; e.currentTarget.style.boxShadow = "0 12px 32px rgba(44,36,32,0.06)"; }}
       onMouseLeave={e => { e.currentTarget.style.borderColor = C.border; e.currentTarget.style.transform = "translateY(0)"; e.currentTarget.style.boxShadow = "none"; }}>
-      <div style={{ aspectRatio: "3/4", background: C.bgAlt, overflow: "hidden" }}>
-        {p.image && <img src={p.image} alt={p.name} style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }} />}
+      <div style={{ position: "relative", aspectRatio: "3/4", background: C.bgAlt, overflow: "hidden" }}>
+        {p.image ? (
+          <img src={p.image} alt={p.name} style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }} />
+        ) : (
+          <div style={{ position: "absolute", inset: 0, display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", gap: 8 }}>
+            <span style={{ fontFamily: F.display, fontSize: 34, fontWeight: 400, color: C.warmLight }}>{p.style || ""}</span>
+            <span style={{ fontFamily: F.body, fontSize: 9, letterSpacing: "0.22em", textTransform: "uppercase", color: C.mutedLight }}>Photo coming</span>
+          </div>
+        )}
+        {p.tag && (
+          <span style={{ position: "absolute", top: 14, left: 14, background: C.dark, color: C.white, fontFamily: F.body, fontSize: 9, fontWeight: 400, letterSpacing: "0.16em", textTransform: "uppercase", padding: "6px 12px" }}>{p.tag}</span>
+        )}
       </div>
-      <div style={{ padding: "24px 24px 28px" }}>
-        <h3 style={{ fontFamily: F.display, fontSize: 20, fontWeight: 400, color: C.dark, marginBottom: 8, lineHeight: 1.25 }}>{p.name}</h3>
-        {p.description && <p style={{ fontFamily: F.body, fontSize: 13, fontWeight: 300, color: C.muted, lineHeight: 1.7, marginBottom: 16 }}>{p.description}</p>}
-        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "baseline", borderTop: `1px solid ${C.border}`, paddingTop: 14 }}>
-          <span style={{ fontFamily: F.display, fontSize: 18, fontWeight: 500, color: C.accent }}>{typeof p.price === "number" ? `$${p.price}` : p.price}</span>
-          {p.sizes && <span style={{ fontFamily: F.body, fontSize: 11, color: C.mutedLight, letterSpacing: "0.08em", textTransform: "uppercase" }}>{p.sizes.join(" · ")}</span>}
-        </div>
+      <div style={{ padding: "20px 22px 26px" }}>
+        <h3 style={{ fontFamily: F.display, fontSize: 19, fontWeight: 400, color: C.dark, marginBottom: 8, lineHeight: 1.3 }}>{p.name}{p.style ? ` — ${p.style}` : ""}</h3>
+        <p style={{ fontFamily: F.body, fontSize: 15, fontWeight: 400, color: C.accent, marginBottom: 10 }}>{typeof p.price === "number" ? `$${p.price.toFixed(2)}` : p.price}</p>
+        {p.color && <p style={{ fontFamily: F.body, fontSize: 10, color: C.mutedLight, letterSpacing: "0.12em", textTransform: "uppercase" }}>{p.color}</p>}
+        {p.sizes && <p style={{ fontFamily: F.body, fontSize: 10, color: C.mutedLight, letterSpacing: "0.08em", textTransform: "uppercase", marginTop: 6 }}>{p.sizes.join(" · ")}</p>}
       </div>
     </div>
   );
@@ -301,7 +309,7 @@ function Catalog() {
             </div>
           </FadeIn>
         ) : (
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 24 }}>
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(210px, 1fr))", gap: 24 }}>
             {items.map((p, i) => (
               <FadeIn key={p.id || i} delay={i * 0.06}>
                 {mode === "retail" ? <RetailCard p={p} /> : <WholesaleCard p={p} />}
